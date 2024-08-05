@@ -1,14 +1,52 @@
+import subprocess
 import sys
 import os
 import re
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfile
 from PyQt5.QtGui import QColor, QPalette
-from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtCore import QSettings
+import requests
+import zipfile
+import io
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-extensions_dir = os.path.join(BASE_DIR, 'extensions')
 cookies_file = os.path.join(BASE_DIR, 'cookies.txt')
+CURRENT_VERSION = "1.2"
+
+def get_latest_release_info():
+    url = "https://api.github.com/repos/TUUVCOME/YouTubeClient/releases/latest"
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Ошибка при получении информации о последнем релизе: {e}")
+        return None
+
+def download_and_extract_zip(url, extract_to='.'):
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+            zip_ref.extractall(extract_to)
+    except requests.RequestException as e:
+        print(f"Ошибка при загрузке и извлечении архива: {e}")
+
+def check_for_updates():
+    release_info = get_latest_release_info()
+    if release_info:
+        latest_version = release_info['tag_name']
+        if latest_version != CURRENT_VERSION:
+            print(f"Обнаружена новая версия: {latest_version}")
+            asset = release_info['assets'][0]
+            download_url = asset['browser_download_url']
+            print("Загрузка обновления...")
+            download_and_extract_zip(download_url, BASE_DIR)
+            print("Обновление завершено. Перезапустите приложение.")
+            return True
+        print("У вас установлена последняя версия.")
+    return False
 
 def on_first_run(settings):
     print("Это первый запуск программы.")
@@ -17,8 +55,8 @@ def on_first_run(settings):
 
 def install_required_libraries():
     try:
-        os.system("pip install PyQt5 PyQtWebEngine")
-    except Exception as e:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "PyQt5", "PyQtWebEngine", "requests"])
+    except subprocess.CalledProcessError as e:
         print(f"Ошибка при установке библиотек: {e}")
 
 def check_first_run():
@@ -59,13 +97,8 @@ class YouTubeClient(QtWidgets.QMainWindow):
         top_layout = QtWidgets.QHBoxLayout(top_container)
         self.url_input = QtWidgets.QLineEdit(self)
         self.url_input.setPlaceholderText('https://www.youtube.com или введите поисковый запрос')
-        self.url_input.setStyleSheet('border: 1px solid #444; border-radius: 5px; padding: 5px; color: #fff; background-color: #333;')
+        self.url_input.setStyleSheet('border: 1px solid #444; border-radius: 10px; padding: 5px; color: #fff; background-color: #333;')
         top_layout.addWidget(self.url_input)
-
-        self.show_button = QtWidgets.QPushButton('Открыть', self)
-        self.show_button.setStyleSheet('background-color: #444; color: white; border-radius: 5px; padding: 8px;')
-        top_layout.addWidget(self.show_button)
-        self.show_button.clicked.connect(self.load_video_or_search)
 
         self.layout.addWidget(top_container)
 
@@ -82,27 +115,20 @@ class YouTubeClient(QtWidgets.QMainWindow):
 
     def on_full_screen_requested(self, request):
         request.accept()
-        if request.toggleOn():
-            self.browser.showFullScreen()
-        else:
-            self.browser.showNormal()
+        self.browser.setWindowState(QtCore.Qt.WindowFullScreen if request.toggleOn() else QtCore.Qt.WindowNoState)
 
     def load_video_or_search(self):
         query = self.url_input.text().strip()
-        if not query:
-            return
-        if re.match(r'(https?://)?(www\.)?(youtube\.com|youtu\.?be)/.+$', query):
-            self.browser.setUrl(QtCore.QUrl(query))
-        else:
-            search_url = f"https://www.youtube.com/results?search_query={query}"
-            self.browser.setUrl(QtCore.QUrl(search_url))
+        if query:
+            url = QtCore.QUrl(query) if re.match(r'(https?://)?(www\.)?(youtube\.com|youtu\.?be)/.+$', query) else QtCore.QUrl(f"https://www.youtube.com/results?search_query={query}")
+            self.browser.setUrl(url)
 
     def update_url_input(self, url):
         self.url_input.setText(url.toString())
 
     def load_cookies(self):
         def on_cookie_added(cookie):
-            with open(cookies_file, 'a') as f:
+            with open(cookies_file, 'a', encoding='utf-8') as f:
                 f.write(f"{cookie.toRawForm().data().decode()}\n")
 
         self.cookie_store.cookieAdded.connect(on_cookie_added)
@@ -118,13 +144,17 @@ class YouTubeClient(QtWidgets.QMainWindow):
 def main():
     check_first_run()
     app = QtWidgets.QApplication(sys.argv)
+
+    if check_for_updates():
+        print("Приложение было обновлено. Пожалуйста, перезапустите его.")
+        sys.exit()
+
     window = YouTubeClient()
     window.showMaximized()
     try:
         sys.exit(app.exec_())
-    except Exception as e:
-        print(f"Unexpected error: {e}")
+    except (SystemExit, OSError, RuntimeError) as e:
+        print(f"Неожиданная ошибка: {e}")
 
 if __name__ == '__main__':
-    os.system(BASE_DIR + "x86_64/goodbyedpi.exe")
     main()
