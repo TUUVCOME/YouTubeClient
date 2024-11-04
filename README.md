@@ -7,7 +7,7 @@ YouTubeClient - Клиент нашей любимой платформы YouTub
 3. Запускаем EXE-файл из релиза.
 
 # Обход замедления
-Вы можете обойти замедление YouTube при помощи:
-https://github.com/ValdikSS/GoodbyeDPI
-https://github.com/bol-van/zapret
-AmneziaWG (+ например, Google Cloud / GitHub Codespace)
+Самые лёгкие способы обойти замедление YouTube:
+1. https://github.com/ValdikSS/GoodbyeDPI
+2. https://github.com/bol-van/zapret (или https://github.com/Flowseal/zapret-discord-youtube)
+3. AmneziaWG (+ например, Google Cloud или GitHub Codespace)
