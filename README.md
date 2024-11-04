@@ -16,7 +16,7 @@ pip install PyQt6 PyQtWebEngine requests
 #### Шаг 3: Запуск программы
 Скачайте exe-файл из [релиза](https://github.com/TUUVCOME/YouTubeClient/releases), или python-файл (для Linux). Запускаем!
 
-### Способы обхода замедления YouTube
+## Способы обхода замедления YouTube
 Если у вас лагает YouTube, мы собрали самые лёгкие методы для обхода:
 - **[Zapret](https://github.com/bol-van/zapret)**: Программа для обхода блокировок по IP на Windows/Linux. Может быть сложна для новичка.
   - [Zapret-Discord-Youtube](https://github.com/Flowseal/zapret-discord-youtube) - простая версия для Windows, поддерживающая обход блокировки YouTube и Discord изначально.
