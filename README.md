@@ -1,13 +1,25 @@
 # YouTubeClient
 YouTubeClient - Клиент нашей любимой платформы YouTube написанный на Python.
 
-## Как начать пользоваться программой?
-1. Скачиваем Python версии 3.9 и выше;
-2. Устанавливаем библиотеки. Вписываем в CMD `pip install PyQt6 PyQtWebEngine`;
-3. Запускаем EXE-файл из релиза.
+## Инструкция по установке YouTubeClient
 
-# Обход замедления
-Самые лёгкие способы обойти замедление YouTube:
-1. https://github.com/ValdikSS/GoodbyeDPI
-2. https://github.com/bol-van/zapret (или https://github.com/Flowseal/zapret-discord-youtube)
-3. AmneziaWG (+ например, Google Cloud или GitHub Codespace)
+#### Шаг 1: Установка Python версии 3.9 и выше
+- **Windows**: Скачайте [установочный файл](https://www.python.org/downloads/) и запусти его. Во время установки выберите опцию «Добавить Python в PATH».
+- **Linux**: Используйте `sudo apt install python3` (для Ubuntu/Debian), или соответствующую своему дистребуктиву команду.
+
+#### Шаг 2: Установка зависимостей
+Откройте CMD или терминал и введите:
+```bash
+pip install PyQt6 PyQtWebEngine requests
+```
+
+#### Шаг 3: Запуск программы
+Скачайте exe-файл из [релиза](https://github.com/TUUVCOME/YouTubeClient/releases), или python-файл (для Linux). Запускаем!
+
+### Способы обхода замедления YouTube
+Если у вас лагает YouTube, мы собрали самые лёгкие методы для обхода:
+- **[Zapret](https://github.com/bol-van/zapret)**: Программа для обхода блокировок по IP на Windows/Linux.
+  - [Zapret-Discord-Youtube](https://github.com/Flowseal/zapret-discord-youtube) - версия, поддерживающая обход блокировки YouTube и Discord изначально.
+- **[GoodbyeDPI](https://github.com/ValdikSS/GoodbyeDPI)**: Инструмент для обхода DPI-блокировок на Windows. Отключает проверку DPI, улучшая доступ к сайтам.
+- **[AmneziaWG](https://amnezia.org/)**: WireGuard VPN-клиент. Можем использовать бесплатный сервер Google Cloud или GitHub Codespace для конфига.
+- **Любой VPN**: Купите проверенный VPN, для избежания потери данных. Или настройте собственный VPN на VPS/VDS с хорошим интернетом и делитесь конфигурациями VLESS/AmneziaVPN с близкими.
