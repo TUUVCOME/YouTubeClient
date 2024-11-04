@@ -18,8 +18,8 @@ pip install PyQt6 PyQtWebEngine requests
 
 ### Способы обхода замедления YouTube
 Если у вас лагает YouTube, мы собрали самые лёгкие методы для обхода:
-- **[Zapret](https://github.com/bol-van/zapret)**: Программа для обхода блокировок по IP на Windows/Linux.
-  - [Zapret-Discord-Youtube](https://github.com/Flowseal/zapret-discord-youtube) - версия, поддерживающая обход блокировки YouTube и Discord изначально.
-- **[GoodbyeDPI](https://github.com/ValdikSS/GoodbyeDPI)**: Инструмент для обхода DPI-блокировок на Windows. Отключает проверку DPI, улучшая доступ к сайтам.
-- **[AmneziaWG](https://amnezia.org/)**: WireGuard VPN-клиент. Можем использовать бесплатный сервер Google Cloud или GitHub Codespace для конфига.
-- **Любой VPN**: Купите проверенный VPN, для избежания потери данных. Или настройте собственный VPN на VPS/VDS с хорошим интернетом и делитесь конфигурациями VLESS/AmneziaVPN с близкими.
+- **[Zapret](https://github.com/bol-van/zapret)**: Программа для обхода блокировок по IP на Windows/Linux. Может быть сложна для новичка.
+  - [Zapret-Discord-Youtube](https://github.com/Flowseal/zapret-discord-youtube) - простая версия для Windows, поддерживающая обход блокировки YouTube и Discord изначально.
+- **[GoodbyeDPI](https://github.com/ValdikSS/GoodbyeDPI)**: Инструмент для обхода DPI-блокировок на Windows. Требуются разные настройки для разных провайдеров.
+- **[AmneziaWG](https://amnezia.org/)**: WireGuard VPN-клиент. Можем использовать бесплатный сервер Google Cloud или GitHub Codespace для конфигурации.
+- **Платный VPN**: Купите проверенный VPN, для избежания потери данных. Или можете настроить собственный VPN (желательно VLESS/AmneziaVPN) на VPS/VDS с хорошим интернетом и делиться конфигурациями с близкими.
