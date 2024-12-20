@@ -9,9 +9,9 @@ YouTubeClient - Клиент нашей любимой платформы YouTub
 
 #### Шаг 2: Установка зависимостей
 Откройте CMD или терминал и введите:
-```bash
+``bash
 pip install PyQt6 PyQtWebEngine requests
-```
+``
 
 #### Шаг 3: Запуск программы
 Скачайте exe-файл из [релиза](https://github.com/TUUVCOME/YouTubeClient/releases), или python-файл (для Linux). Запускаем!
